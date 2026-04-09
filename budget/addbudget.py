@@ -1,22 +1,15 @@
 from flask import Blueprint, jsonify, request
-from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from .database import db_session
 from .auth import allowed_methods
 from datetime import datetime
 from .models import Budget, User
-from budget.auth import jwt
-from flask_cors import CORS
-from budget import addbudget
+from . import jwt
 
-
-# addbudget = Blueprint('addbudget', __name__)
-
-CORS(addbudget, resources={r"/*": {"origins": "http://127.0.0.1:5500"}})
-
+addbudget = Blueprint('addbudget', __name__)
 
 # ------------------ BUDGET ------------------
-@addbudget.route('/', methods=['GET'])
+@addbudget.route('/budget', methods=allowed_methods)
 @jwt_required()
 def budget():
     try:

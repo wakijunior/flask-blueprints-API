@@ -1,19 +1,11 @@
 from flask import Blueprint, jsonify, request
 from .database import db_session
 from .models import User
+from . import bcrypt
 from datetime import datetime
 from flask_jwt_extended import create_access_token
-from flask_jwt_extended import JWTManager
-from flask_bcrypt import Bcrypt
-from flask_cors import CORS
-
 
 auth = Blueprint('auth', __name__)
-
-CORS(auth)
-
-jwt = JWTManager()
-bcrypt = Bcrypt()
 
 
 allowed_methods = ['POST', 'GET', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
